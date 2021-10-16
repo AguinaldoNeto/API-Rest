@@ -1,0 +1,19 @@
+.container {
+    margin-top: 3rem;
+}
+
+.titulo-pessoa {
+    margin: 2rem auto;
+}
+
+.alert {
+  width: 80%;
+  position: relative;
+  left: 10%;
+}
+
+form {
+    width: 80%;
+    position: relative;
+    left: 10%;
+}

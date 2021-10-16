@@ -1,0 +1,86 @@
+<div class="container">
+    <div fxLayout="row" fxLayoutAlign="space-around center" >
+
+        <div class="card" style="width: 80rem; height: 800px;">
+
+          <h3 class="titulo-pessoa">Lista de pessoas cadastradas</h3>
+
+          <div class="row">
+            <div class="col my-3 ms-3">
+<!-----------------------------------CAMPO DE MENSAGEM DE ÊXITO/ERRO--------------------------------------->
+              <div class="alert alert-success" role="alert" *ngIf="mensagemExito">
+                {{ mensagemExito }}
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro}}
+              </div>
+
+              <button type="button" class="btn btn-secondary me-2" routerLink="">
+                <i class="fa fa-arrow-left"></i>
+                Voltar
+              </button>
+
+              <button type="button" class="btn btn-primary" routerLink="/pessoa/nova-pessoa">
+                <i class="fa fa-plus"></i>
+                Novo Cadastro
+              </button>
+            </div>
+          </div>
+           <div class="row">
+                <div class="col">
+                    <table class="table table-striped table-hover table-sm">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Cod</th>
+                            <th>Nome</th>
+                            <th>Cpf</th>
+                            <th>Data de nascimento</th>
+                            <th>Editar</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngFor="let pessoa of listaPessoa">
+                            <td>{{ pessoa.id }}</td>
+                            <td>{{ pessoa.nome }}</td>
+                            <td>{{ pessoa.cpf }}</td>
+                            <td>{{ pessoa.dataNascimento }}</td>
+                            <td>
+                              <button class="btn btn-outline-warning me-2" routerLink="editar-pessoa/{{ pessoa.id }}">
+                                <i class="fa fa-edit"></i>
+                              </button>
+
+
+                              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                              (click)="preparaPessoaExcluir(pessoa)">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalExcluir" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Excluir usuário</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body" *ngIf="pessoaExcluir">
+                                Você deseja excluir o usuário <strong> {{ pessoaExcluir.nome }} </strong>?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" (click)="excluirUsuario()" data-bs-dismiss="modal">Confirmar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>

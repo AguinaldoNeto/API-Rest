@@ -1,0 +1,77 @@
+<div class="container">
+    <div fxLayout="row" fxLayoutAlign="space-around center" >
+
+        <div class="card" style="width: 80rem; height: 800px;">
+
+            <h3 class="titulo-pessoa"> {{ pessoa.id ? 'Editar pessoa' : 'Cadastrar nova pessoa' }} </h3>
+
+<!-----------------------------------CAMPO DE MENSAGEM ÊXITO/ERRO--------------------------------------->
+
+            <div class="alert alert-success" role="alert" *ngIf="mensagemExito">
+              {{ mensagemExito }}
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+              {{ mensagemErro}}
+            </div>
+<!-----------------------------------FORMULÁRIO--------------------------------------->
+            <form #formsPessoa="ngForm" (ngSubmit)="onSubmit()" #pessoaForm="ngForm">
+                <div class="row mb-3">
+                    <div class="col-2">
+                      <label for="id">Id</label>
+                      <input type="text" class="form-control" id="id" disabled
+                      [(ngModel)]="pessoa.id" name="id">
+                    </div>
+
+                    <div class="col-10">
+                      <label for="nome">Nome</label>
+                      <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo"
+                      [(ngModel)]="pessoa.nome" name="nome" #campoNome="ngModel" required>
+                      <app-mensagem
+                        mensagem="Nome da pessoa obrigatório"
+                        *ngIf="campoNome.invalid && campoNome.touched">
+                      </app-mensagem>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control" id="cpf" required
+                        [(ngModel)]="pessoa.cpf" name="cpf" #campoCpf="ngModel" mask="000.000.000-00" placeholder="000.000.000-00">
+                        <app-mensagem
+                        mensagem="Cpf obrigatório"
+                        *ngIf="campoCpf.invalid && campoCpf.touched">
+                        </app-mensagem>
+                    </div>
+
+                    <div class="col-5">
+                        <label for="dataNasc">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="dataNasc" required
+                        [(ngModel)]="pessoa.dataNascimento" name="dataNascimento" #campoDataNasc="ngModel">
+                        <app-mensagem
+                          mensagem="Data de nascimento obrigatório"
+                          *ngIf="campoDataNasc.invalid && campoDataNasc.touched">
+                        </app-mensagem>
+                    </div>
+                </div>
+                <div class="botoes">
+
+                    <button class="btn btn-secondary btn-block mt-4 me-2" (click)="voltar()">
+                      <i class="fas fa-arrow-left"></i>
+                      Voltar
+                    </button>
+
+                    <button class="btn btn-success btn-block mt-4" type="submit" *ngIf="!pessoa.id" [disabled]="pessoaForm.invalid">
+                      <i class="fas fa-check"></i>
+                      Cadastrar
+                    </button>
+
+                    <button class="btn btn-primary btn-block mt-4" type="submit" *ngIf="pessoa.id">
+                      <i class="fas fa-redo"></i>
+                      Atualizar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="container">
+  <div fxLayout="row" fxLayoutAlign="space-around center" >
+
+      <div class="card" style="width: 80rem; height: 800px;">
+
+          <h3 class="titulo-pessoa"> {{ contato.id ? 'Editar contato' : 'Cadastrar novo Contato' }} </h3>
+<!-----------------------------------CAMPOS DE MENSAGEM DE ÊXITO/ERRO --------------------------------------->
+          <div class="alert alert-success" role="alert" *ngIf="mensagemExito">
+            {{ mensagemExito }}
+          </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+            {{ mensagemErro}}
+          </div>
+<!-----------------------------------FORMULÁRIO--------------------------------------->
+          <form #formsPessoa="ngForm" (ngSubmit)="onSubmit()" #contatoForm="ngForm">
+              <div class="row mb-3">
+                  <div class="col-2">
+                    <label for="id">Id</label>
+                      <input type="text" class="form-control" id="id" placeholder="id" aria-label="id" disabled
+                      [(ngModel)]="contato.id" name="id">
+                    </div>
+
+                  <div class="col-10">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="digite seu nome completo" required
+                    [(ngModel)]="contato.nome" name="nome" #campoNome="ngModel" >
+                    <app-mensagem
+                      mensagem="Nome do contato obrigatório."
+                      *ngIf="campoNome.invalid && campoNome.touched">
+                    </app-mensagem>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="telefone">Telefone</label>
+                      <input type="text" class="form-control" required id="telefone"
+                      [(ngModel)]="contato.telefone" name="telefone" #campoTelefone="ngModel" prefix="+55 " mask="(00) 00000-0000" [showMaskTyped] = "true">
+                      <app-mensagem
+                        mensagem="Telefone obrigatório."
+                        *ngIf="campoTelefone.invalid && campoTelefone.touched">
+                      </app-mensagem>
+                    </div>
+
+                  <div class="col-6">
+                      <label for="email">E-mail</label>
+                      <input type="text" class="form-control" id="email" placeholder="seuemail@email.com" aria-label="E-mail" required
+                      [(ngModel)]="contato.email" name="email" #campoEmail="ngModel">
+                      <app-mensagem
+                        mensagem="E-mail obrigatório."
+                        *ngIf="campoEmail.invalid && campoEmail.touched">
+                      </app-mensagem>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Pessoa: </label>
+                    <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="contato.pessoa" >
+                      <option value="">Selecione a pessoa</option>
+                      <option *ngFor="let pessoa of listaPessoa" [ngValue]="pessoa.id">
+                        {{ pessoa.nome }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="botoes">
+
+                  <button class="btn btn-secondary btn-block mt-4 me-2" (click)="voltar()">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar
+                  </button>
+
+                  <button class="btn btn-success btn-block mt-4" type="submit" *ngIf="!contato.id" [disabled]="contatoForm.invalid">
+                    <i class="fas fa-check"></i>
+                    Cadastrar
+                  </button>
+
+                  <button class="btn btn-primary btn-block mt-4" type="submit" *ngIf="contato.id">
+                    <i class="fas fa-redo"></i>
+                    Atualizar
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

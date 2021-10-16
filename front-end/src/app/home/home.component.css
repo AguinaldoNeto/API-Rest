@@ -1,0 +1,31 @@
+.container {
+    width: 66%;
+    height: 400px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: space-evenly;
+    vertical-align: middle;
+    margin-top: 10%;
+}
+
+.card {
+    margin-left: 20px;
+    width: 400px;
+}
+
+.card:hover {
+  background-color: rgba(65, 65, 65, 0.116);
+  color: rgb(255, 255, 255);
+  border: 1px solid white;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.botao {
+    width: 100%;
+    margin-top: 25px;
+}
+
